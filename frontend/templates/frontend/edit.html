@@ -9,12 +9,12 @@
             Todo List
         </div>
         <div class="card-body p-5">
-            <form action="{% url 'create' %}" method="post">
+            <form action="{% url 'edit' dataEdit.id%}" method="post">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-md-9">
                         <div>
-                            <input type="text" class="form-control" name="task" id="task" placeholder="Add Task">
+                            <input type="text" class="form-control" name="task" id="task" placeholder="Add Task" value="{{dataEdit.title}}">
                         </div>
                     </div>
                     <div class="col-md-3">
