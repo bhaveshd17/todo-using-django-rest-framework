@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 import requests
 
 
-domain = 'http://127.0.0.1:8000'
+domain = 'https://todobhavesh.herokuapp.com'
 def toDoList(request):
     response = requests.get(domain+'/api/task-list/')
     data = response.json()
