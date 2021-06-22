@@ -10,8 +10,8 @@ from .forms import UserForm
 from .utils import data_list
 
 
-# domain = 'https://todobhavesh.herokuapp.com'
-domain = 'http://127.0.0.1:8000'
+domain = 'https://todobhavesh.herokuapp.com'
+# domain = 'http://127.0.0.1:8000'
 
 @login_required(login_url='loginUser')
 def toDoList(request):

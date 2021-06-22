@@ -1,7 +1,7 @@
 import requests
 
-# domain = 'https://todobhavesh.herokuapp.com'
-domain = 'http://127.0.0.1:8000'
+domain = 'https://todobhavesh.herokuapp.com'
+# domain = 'http://127.0.0.1:8000'
 
 def data_list(request):
     response = requests.get(domain + '/api/task-list/')
