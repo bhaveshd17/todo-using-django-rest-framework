@@ -1,12 +1,12 @@
 from django.contrib import messages
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 import requests
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user
+from django.contrib.auth.models import User
 
-from .forms import UserForm
+from .forms import UserCreationForm
 
 # domain = 'https://todobhavesh.herokuapp.com'
 domain = 'http://127.0.0.1:8000'
@@ -59,14 +59,16 @@ def signInUser(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
+
             form.save()
             username = form.cleaned_data.get('username')
             user = User.objects.get(username=username)
+            # user.is_active = True
+            # user.save()
             login(request, user)
-            request.session.set_expiry(60 * 60 * 24 * 30)
             return redirect('/index/')
     else:
-        form = UserForm()
+        form = UserCreationForm()
 
     return render(request, 'auth/signin.html', {'form':form})
 
@@ -78,7 +80,7 @@ def loginUser(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            request.session.set_expiry(60 * 60 * 24*30)
+            request.session.set_expiry(60 * 60 * 24)
             return redirect('/index/')
         else:
             messages.error(request, 'Wrong username or password')
