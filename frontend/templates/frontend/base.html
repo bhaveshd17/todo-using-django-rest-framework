@@ -23,6 +23,30 @@
 </head>
 
 <body>
+    {% if request.user.is_authenticated %}
+    <div class="my-5 d-flex justify-content-center">
+        <button type="button" class="btn btn-transparent" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <h2 class="h2 text-center">Welcome {{request.user}} !</h2>
+        </button>
+    </div>
+    {% endif %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center">
+                        <a href="{% url 'logout' %}" class="btn btn-danger btn-small">Logout!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container mt-3">
         {% block body %}
         {% endblock body %}
@@ -31,6 +55,12 @@
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
 
+    <script>
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl)
+        })
+    </script>
 </body>
 
 </html>

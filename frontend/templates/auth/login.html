@@ -10,6 +10,7 @@
             alt="" class="card-img-top">
             <h5 class="card-title mt-3">Login</h5>
             <form action="{% url 'loginUser' %}" method="post">
+                {% csrf_token %}
                 <div class="mb-3">
                     <label class="form-label" for="username">Username</label>
                     <input class="form-control" type="text" id="username" name="username" autofocus required>
@@ -19,6 +20,15 @@
                     <input class="form-control" type="password" id="password" name="password" required>
                 </div>
                 <div class="mb-3"><a href="" style="text-decoration: none;">forgot password?</a></div>
+
+                {% if messages %}
+                {% for message in messages %}
+                <div class="d-flex justify-content-center mb-3">
+                    <strong
+                        style="color: red;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">{{message}}</strong>
+                </div>
+                {% endfor %}
+                {% endif %}
                 <div class="d-grid mb-3">
                     <button class="btn btn-outline-success btn-block">Login</button>
                 </div>
