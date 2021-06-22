@@ -30,13 +30,13 @@
         <div class="card-body p-5">
             {% for task in data %}
             <div class="row m-3">
-                <div class="col-md-10 fs-5" style="font-family: 'Source Sans Pro', sans-serif;">
+                <div class="col-md-10 col-xs-6 fs-5" style="font-family: 'Source Sans Pro', sans-serif;">
                     {{task.title}}
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-1 col-xs-2">
                     <a href="{% url 'edit' task.id%}" class="btn btn-primary">Edit</a>
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-1 col-xs-2">
                     <a href="{% url 'delete' task.id%}" class="btn btn-danger">Delete</a>
                 </div>
             </div>

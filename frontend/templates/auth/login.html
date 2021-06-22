@@ -1,0 +1,33 @@
+{% extends '../frontend/base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="d-flex justify-content-center mt-5">
+    
+    <div class="card" style="width: 25rem;">
+        <div class="card-body">
+            <img src="https://images.unsplash.com/photo-1547480053-7d174f67b557?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
+            alt="" class="card-img-top">
+            <h5 class="card-title mt-3">Login</h5>
+            <form action="{% url 'loginUser' %}" method="post">
+                <div class="mb-3">
+                    <label class="form-label" for="username">Username</label>
+                    <input class="form-control" type="text" id="username" name="username" autofocus required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="pasword">Password</label>
+                    <input class="form-control" type="password" id="password" name="password" required>
+                </div>
+                <div class="mb-3"><a href="" style="text-decoration: none;">forgot password?</a></div>
+                <div class="d-grid mb-3">
+                    <button class="btn btn-outline-success btn-block">Login</button>
+                </div>
+                <div class="mb-3 text-center">
+                    Dont have account? <a href="{% url 'signInUser' %}" style="text-decoration: none;">create account</a>
+                </div>
+            </form>
+        </div>
+      </div>
+           
+</div>
+{% endblock body %}

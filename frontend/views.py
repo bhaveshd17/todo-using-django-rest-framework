@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 import requests
 
 
-domain = 'https://todobhavesh.herokuapp.com'
+# domain = 'https://todobhavesh.herokuapp.com'
+domain = 'http://127.0.0.1:8000'
+
 def toDoList(request):
     response = requests.get(domain+'/api/task-list/')
     data = response.json()
@@ -31,4 +33,22 @@ def updateList(request, pk):
 def deleteList(request, pk):
     deleteUrl = domain+f'/api/task-delete/{pk}/'
     requests.delete(deleteUrl)
+    return redirect('/')
+
+
+#authentication
+
+def signInUser(request):
+    content = {
+
+    }
+    return render(request, 'auth/signin.html', content)
+
+def loginUser(request):
+    content = {
+
+    }
+    return render(request, 'auth/login.html', content)
+
+def logout(request):
     return redirect('/')
