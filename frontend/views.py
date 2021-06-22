@@ -6,16 +6,17 @@ from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user
 from django.contrib.auth.models import User
 
-from .forms import UserCreationForm
+from .forms import UserForm
+from .utils import data_list
+
 
 # domain = 'https://todobhavesh.herokuapp.com'
 domain = 'http://127.0.0.1:8000'
 
 @login_required(login_url='loginUser')
 def toDoList(request):
-    response = requests.get(domain+'/api/task-list/')
-    data = response.json()
-    content = {'data':data}
+    data = data_list(request)
+    content = {'data':data['data_list']}
     return render(request, 'frontend/index.html', content)
 
 
@@ -23,21 +24,21 @@ def toDoList(request):
 def createList(request):
     urlPost = domain+'/api/task-create/'
     title = request.POST.get('task')
-    requests.post(urlPost, {'title': title})
+    user = request.user.id
+    requests.post(urlPost, {'title': title, 'user':user})
     return redirect('/index/')
 
 
 @login_required(login_url='loginUser')
 def updateList(request, pk):
     urlUpdate = domain+f'/api/task-update/{pk}/'
-    response = requests.get(domain + '/api/task-list/')
     taskResp = requests.get(domain + f'/api/task-details/{pk}/')
-    data = response.json()
+    data = data_list(request)
     dataEdit = taskResp.json()
-    content = {'data': data, 'dataEdit':dataEdit}
+    content = {'data': data['data_list'], 'dataEdit':dataEdit}
     if request.method == 'POST':
         task = request.POST.get('task')
-        requests.put(urlUpdate, {'title': task})
+        requests.put(urlUpdate, {'title': task, 'user':request.user.id})
         return redirect('/index/')
     return render(request, 'frontend/edit.html', content)
 
@@ -59,16 +60,13 @@ def signInUser(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
-
             form.save()
             username = form.cleaned_data.get('username')
             user = User.objects.get(username=username)
-            # user.is_active = True
-            # user.save()
             login(request, user)
             return redirect('/index/')
     else:
-        form = UserCreationForm()
+        form = UserForm()
 
     return render(request, 'auth/signin.html', {'form':form})
 

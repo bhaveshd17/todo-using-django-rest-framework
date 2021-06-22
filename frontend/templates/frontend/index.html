@@ -33,17 +33,17 @@
         </div>
     </div>
     <div class="card card-body my-3">
-        <div class="card-body p-5">
+        <div class="card-body">
             {% for task in data %}
             <div class="row m-3">
-                <div class="col-md-10 col-xs-6 fs-5" style="font-family: 'Source Sans Pro', sans-serif;">
-                    {{task.title}}
+                <div class="col-md-10 col-xs-10 fs-5" style="font-family: 'Source Sans Pro', sans-serif;">
+                    <h5 class="card-title">{{task.title}}</h5>
                 </div>
-                <div class="col-md-1 col-xs-2">
+                <div class="col-md-2 col-xs-2">
                     <a href="{% url 'edit' task.id%}" class="btn btn-primary">Edit</a>
-                </div>
-                <div class="col-md-1 col-xs-2">
                     <a href="{% url 'delete' task.id%}" class="btn btn-danger">Delete</a>
+
+
                 </div>
             </div>
             <hr>
